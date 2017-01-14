@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace Slight.Alexa.Framework.Models.Responses
 {
-    class SsmlOutputSpeech : IOutputSpeech
+    public class SsmlOutputSpeech : IOutputSpeech
     {
         /// <summary>
         /// A string containing the type of output speech to render. Valid types are:
