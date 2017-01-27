@@ -62,5 +62,53 @@ namespace Slight.Alexa.Framework.Tests.ModelTests
 
             Assert.Equal(workingJson, json);
         }
+
+        [Fact]
+        public void Should_create_same_ssml_json_response_as_example()
+        {
+            var skillResponse = new SkillResponse
+            {
+                Version = "1.0",
+                SessionAttributes = new Dictionary<string, object>
+                {
+                    {
+                        "supportedHoriscopePeriods", new
+                        {
+                            daily = true,
+                            weekly = false,
+                            monthly = false
+                        }
+                    }
+                },
+                Response = new Response
+                {
+                    OutputSpeech = new SsmlOutputSpeech
+                    {
+                        Ssml =
+                            "<speak>Today will provide you a new learning opportunity. Stick with it and the possibilities will be endless. Can I help you with anything else?</speak>"
+                    },
+                    Card = new SimpleCard
+                    {
+                        Title = "Horoscope",
+                        Content =
+                            "Today will provide you a new learning opportunity. Stick with it and the possibilities will be endless."
+                    },
+                    ShouldEndSession = false
+                }
+            };
+
+            var json = JsonConvert.SerializeObject(skillResponse, Formatting.Indented, new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            });
+
+            const string example = "SsmlResponse.json";
+            var workingJson = File.ReadAllText(Path.Combine(ExamplesPath, example));
+
+            workingJson = Regex.Replace(workingJson, @"\s", "");
+            json = Regex.Replace(json, @"\s", "");
+
+            Assert.Equal(workingJson, json);
+        }
     }
 }
