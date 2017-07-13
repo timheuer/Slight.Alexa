@@ -25,7 +25,34 @@ namespace Slight.Alexa.Framework.Models.Requests.RequestTypes
         /// ISO 8601 formatted string (for example, 2015-05-13T12:34:56Z).
         /// </summary>
         [JsonProperty("timestamp")]
-        public DateTime Timestamp { get; set; }
+        private string TimeStampString { get; set; }
+
+        [JsonIgnore]
+        public DateTime Timestamp { 
+            get 
+            {
+				DateTime output;
+				var dateString = TimeStampString;
+				long temp;
+				if (long.TryParse(dateString, out temp))
+				{
+					output = new DateTime(1970, 1, 1).AddMilliseconds(temp);
+				}
+				else
+				{
+					try
+					{
+						output = (DateTime)Newtonsoft.Json.JsonConvert.DeserializeObject(dateString, typeof(DateTime));
+					}
+					catch (Exception e)
+					{
+						output = DateTime.MinValue;
+					}
+				}
+                return output; 
+            } 
+            set { TimeStampString = JsonConvert.SerializeObject(value); } 
+        }
 
         /// <summary>
         /// An object that represents what the user wants.
@@ -58,6 +85,14 @@ namespace Slight.Alexa.Framework.Models.Requests.RequestTypes
                 default:
                     throw new ArgumentOutOfRangeException(nameof(Type), $"Unknown request type: {Type}.");
             }
+        }
+
+        [Newtonsoft.Json.Serialization.OnError]
+		internal void OnError(
+            System.Runtime.Serialization.StreamingContext context, 
+            Newtonsoft.Json.Serialization.ErrorContext errorContext)
+        {
+            errorContext.Handled = true;
         }
     }
 }

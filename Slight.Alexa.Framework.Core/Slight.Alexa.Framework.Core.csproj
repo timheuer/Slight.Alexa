@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>A set of managed C# models and helpers to integrate Amazon's Alexa skill services into your .NET Core stack.</Description>
+    <AssemblyTitle>Slight.Alexa.Core</AssemblyTitle>
+    <VersionPrefix>1.0.10-beta</VersionPrefix>
+    <Authors>Silvenga</Authors>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <AssemblyName>Slight.Alexa.Core</AssemblyName>
+    <PackageId>Slight.Alexa.Framework.Core</PackageId>
+    <PackageTags>amazon;alexa;echo</PackageTags>
+    <PackageProjectUrl>https://github.com/Silvenga/Slight.Alexa</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Silvenga/Slight.Alexa/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/Silvenga/Slight.Alexa</RepositoryUrl>
+    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Shared\**\*.cs" Exclude="bin\**;obj\**;**\*.xproj;packages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
+
+</Project>
