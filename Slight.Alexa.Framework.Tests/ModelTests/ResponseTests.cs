@@ -13,7 +13,7 @@ namespace Slight.Alexa.Framework.Tests.ModelTests
 {
     public class ResponseTests
     {
-        private const string ExamplesPath = @"ModelTests\Examples\";
+        private readonly string ExamplesPath = @"ModelTests" + System.IO.Path.DirectorySeparatorChar + "Examples";
 
         [Fact]
         public void Should_create_same_json_response_as_example()
@@ -55,6 +55,7 @@ namespace Slight.Alexa.Framework.Tests.ModelTests
             });
 
             const string example = "Response.json";
+
             var workingJson = File.ReadAllText(Path.Combine(ExamplesPath, example));
 
             workingJson = Regex.Replace(workingJson, @"\s", "");
